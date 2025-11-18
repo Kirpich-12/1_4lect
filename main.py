@@ -12,9 +12,8 @@ if __name__ == '__main__':
     root = Tk() # инициализация окна
     root.title("Имя окна") # имя окна
     root.geometry('400x400') # размер окна
-    style = Style() # инициируем использование стилей
-    #style.theme_use('alt') # выбираем тему
-    root.option_add("*tearOff", FALSE)  #выключаем ненужные штрихи во всех меню сразу
+    root.tk.call("source", "azure.tcl")
+    root.tk.call("set_theme", "dark")
 
     # наваливаем фактуры
     label = Label(root, text='Это метка') # добавлям метку
@@ -40,13 +39,13 @@ if __name__ == '__main__':
 
     radiobutton1 = Radiobutton(text='радиокнопка 1', value="Value 1", variable="Value 1") # добавлям радиокнопки
     radiobutton2 = Radiobutton(text='радиокнопка 2', value="Value 2", variable="Value 1") # их должно быть хотя бы две - одна из них будет заполнена по умолчанию
-    radiobutton1.place(x=50, y=230)
+    radiobutton1.place(x=50, y=225)
     radiobutton2.place(x=50, y=250)
 
     verticalScale = Scale(orient=VERTICAL, length=200, from_=1.0, to=100.0) # добавлям вертикальный ползунок
     verticalScale.place(x=10, y=100)
     
-    horizontalScale = Scale(orient=HORIZONTAL, length=150, from_=1.0, to=100.0) # добавлям горизонтальный ползунок
+    horizontalScale = Scale(orient=HORIZONTAL, length=150, from_=1.0, to=100.0) #добавлям горизонтальный ползунок
     horizontalScale.place(x=30, y=350)
 
     file_menu = Menu() # добавлям вложенное меню
