@@ -1,62 +1,54 @@
-from tkinter import *       # стандарт
-from tkinter.ttk import *   # более свежее оформление
-
-def clicked():
-    from tkinter import messagebox
-
-    messagebox.showinfo('Пиво', 'Пиво') # сообщение в отдельном месседжбоксе
-    print('Клик')
+import tkinter as tk
+from bandit import OneArmedBandit
 
 
-if __name__ == '__main__':
-    root = Tk() # инициализация окна
-    root.title("Имя окна") # имя окна
-    root.geometry('400x400') # размер окна
-    root.tk.call("source", "azure.tcl")
-    root.tk.call("set_theme", "dark")
+root = tk.Tk()
+root.title("Изменяющееся окно")
+root.geometry("400x400")
+root.tk.call("source", "azure.tcl")
+root.tk.call("set_theme", "dark")
 
-    # наваливаем фактуры
-    label = Label(root, text='Это метка') # добавлям метку
-    # label.grid(column=0, row=0)           # местоположение метки по сетке
-    label.place(x=200,y=10)              # местоположение метки по пикселям
 
-    button = Button(root, text='Пиво', command=clicked) # добавлям кнопку
-    button.place(x=100,y=100)
-
-    entry = Entry(root) # добавлям поле ввода
-    entry.place(x=200,y=100)
-
-    # text = Text(root, wrap='word') # добавлям текст, И ЗАМЕНЯЕМ ПОЛЕ ВВОДА
-    # entry.place(x=100,y=200)
-
-    languages = ["Python", "JavaScript", "C#", "Java"]
-    languages_var = Variable(value=languages)
-    listbox = Listbox(listvariable=languages_var) # добавлям список
-    listbox.place(x=200, y=200)
-
-    checkbutton = Checkbutton(text='чекбокс') # добавлям чекбокс
-    checkbutton.place(x=100, y=200)
-
-    radiobutton1 = Radiobutton(text='радиокнопка 1', value="Value 1", variable="Value 1") # добавлям радиокнопки
-    radiobutton2 = Radiobutton(text='радиокнопка 2', value="Value 2", variable="Value 1") # их должно быть хотя бы две - одна из них будет заполнена по умолчанию
-    radiobutton1.place(x=50, y=225)
-    radiobutton2.place(x=50, y=250)
-
-    verticalScale = Scale(orient=VERTICAL, length=200, from_=1.0, to=100.0) # добавлям вертикальный ползунок
-    verticalScale.place(x=10, y=100)
+def startwind():
+    for widget in root.winfo_children():
+        widget.destroy()
+        
+    label = tk.Label(root, text="Нажмите кнопку, чтобы поиграть в казино", font=("Arial", 12))
+    label.pack(pady=20)
     
-    horizontalScale = Scale(orient=HORIZONTAL, length=150, from_=1.0, to=100.0) #добавлям горизонтальный ползунок
-    horizontalScale.place(x=30, y=350)
+    button = tk.Button(root, text="Казино", command=sec_wind)
+    button.pack()
 
-    file_menu = Menu() # добавлям вложенное меню
-    file_menu.add_cascade(label="Save") # добавляем пункты меню
-    file_menu.add_cascade(label="Save as")
-    file_menu.add_cascade(label="Open")
-    file_menu.add_cascade(label="Click", command=clicked)
-    main_menu = Menu() # добавлям основное меню
-    main_menu.add_cascade(label="File", menu=file_menu)
-    main_menu.add_cascade(label="Edit")
-    main_menu.add_cascade(label="View")
+def sec_wind():
+    for widget in root.winfo_children():
+        widget.destroy()
     
-    root.config(menu=main_menu) # отображаем меню в окне
-    root.mainloop() # отображение окна
+    label = tk.Label(root, text="Добро пожаловать в казино!", font=("Arial", 14))
+    label.pack(pady=20)
+
+    rollbtn = tk.Button(root, text='Слоты', command=rollet)
+    rollbtn.pack(pady=20)
+    
+    button = tk.Button(root, text="Вернуть обратно", command=startwind)
+    button.pack(pady=8)
+
+    
+def dothis():
+    app = OneArmedBandit()
+    app.place_slaves
+
+def rollet():
+    for widget in root.winfo_children():
+        widget.destroy()
+    
+    label = tk.Label(root, text="Слоты", font=("Arial", 14))
+    label.pack(pady=20)
+
+    button = tk.Button(root, text="Слоты", command=dothis)
+    button.pack(pady=20)
+
+    button = tk.Button(root, text="Вернуть обратно", command=sec_wind)
+    button.pack(pady=20)
+
+startwind()
+root.mainloop()
